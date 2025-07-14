@@ -1,40 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>timetable</title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-<h2>{{ timetable.batch.name }} – Version {{ timetable.version }}</h2>
-<table border="1" cellpadding="8">
-  <tr>
-    <th>Day / Period</th>
-    {% for slot in slots %}
-      <th>{{ slot.slot_label }}<br>{{ slot.start_time }} - {{ slot.end_time }}</th>
-    {% endfor %}
-  </tr>
+{% block title %}Create Timetable{% endblock %}
 
-  {% for day in days %}
-  <tr>
-    <td><b>{{ day }}</b></td>
-    {% for slot in slots %}
-      {% with entry=timetable_data|default:{}|dict:day|default:{}|dict:slot.id %}
-        <td>
-          {% if entry %}
-            {{ entry.subject.name }} <br>
-            {{ entry.room.name }}
-          {% else %}
-            -
-          {% endif %}
-        </td>
-      {% endwith %}
-    {% endfor %}
-  </tr>
-  {% endfor %}
-</table>
+{% block content %}
+<h1>Create Your Timetable</h1>
+<p>Use the form below to create your timetable for college or school.</p>
 
+<hr>
+
+<h2>Create classes:</h2>
+<form>
+  <label>Name : </label><input type="text" id="batch_name" placeholder="Name of the batch">
+  <label>Year : </label><input type="text" id="batch_year" placeholder="Year of the batch">
+  <label>Department : </label><input type="text" id="batch_dept" placeholder="Department of the batch">
+</form>
+
+<hr>
+
+<h2>Subjects for the batch</h2>
+<form>
+    <label>Name : </label><input type="text" id="subject_name" placeholder="Enter subject name">
+    <label>Code : </label><input type="text" id="subject_code" placeholder="Enter subject code">
+    <label>Type : </label>
+    <input type="radio" id="subject_type" value="Lecture"><label>Lecture</label>
+    <input type="radio" id="subject_type" value="Lab"><label>Laboratory</label>
+</form>
+
+<hr>
+
+<h2>Faculties for the batch</h2>
+<form>
+    <label>Name : </label>
     
-</body>
-</html>
+</form>

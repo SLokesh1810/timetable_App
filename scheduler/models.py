@@ -21,6 +21,23 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.code}) - {self.type})"
+
+class Faculty(models.Model):
+    id =  models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10)
+
+    def ___str___(self):
+        return f"{self.name} - {self.id}"
+
+class FacultySubject(models.Model):
+    id = models.AutoField(primary_key=True)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.faculty.name} - {self.subject.name}"
     
 class Timeslots(models.Model):
     id = models.AutoField(primary_key=True)
