@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timetable</title>
+</head>
+<body>
+
+<h2>{{ timetable.batch.name }} – Version {{ timetable.version }}</h2>
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Day / Period</th>
+    {% for slot in slots %}
+      <th>{{ slot.slot_label }}<br>{{ slot.start_time }} - {{ slot.end_time }}</th>
+    {% endfor %}
+  </tr>
+
+  {% for day in days %}
+  <tr>
+    <td><b>{{ day }}</b></td>
+    {% for slot in slots %}
+      {% with entry=timetable_data|default:{}|dict:day|default:{}|dict:slot.id %}
+        <td>
+          {% if entry %}
+            {{ entry.subject.name }} <br>
+            {{ entry.room.name }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      {% endwith %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+    
+</body>
+</html>
